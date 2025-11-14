@@ -76,5 +76,6 @@ export default {
 .herb-detail-view {
     min-height: 100vh;
     padding-bottom: 40px;
+    flex-grow: 1;
 }
 </style>

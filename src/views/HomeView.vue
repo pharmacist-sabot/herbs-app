@@ -2,11 +2,7 @@
 <template>
     <div class="home-view">
         <Header />
-        <SearchBar
-            :categories="categories"
-            @search="handleSearch"
-            @filter="handleFilter"
-        />
+        <SearchBar :categories="categories" @search="handleSearch" @filter="handleFilter" />
 
         <div class="container">
             <div class="herbs-count" v-if="filteredHerbs.length">
@@ -14,11 +10,7 @@
             </div>
 
             <div class="herbs-grid grid grid-3" v-if="filteredHerbs.length">
-                <HerbCard
-                    v-for="herb in filteredHerbs"
-                    :key="herb.ID"
-                    :herb="herb"
-                />
+                <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
             </div>
 
             <div class="no-results" v-else-if="!loading">
@@ -131,6 +123,7 @@ export default {
 <style scoped>
 .home-view {
     min-height: 100vh;
+    flex-grow: 1;
 }
 
 .herbs-count {
@@ -141,6 +134,7 @@ export default {
 
 .herbs-grid {
     margin-bottom: 40px;
+    padding-bottom: 2rem;
 }
 
 .no-results,
