@@ -5,11 +5,11 @@
         <SearchBar :categories="categories" @search="handleSearch" @filter="handleFilter" />
 
         <div class="container">
-            <div class="herbs-count" v-if="filteredHerbs.length">
+            <div class="herbs-count" v-if="filteredHerbs.length && !loading">
                 <p>พบ {{ filteredHerbs.length }} รายการ</p>
             </div>
 
-            <div class="herbs-grid grid grid-3" v-if="filteredHerbs.length">
+            <div class="herbs-grid grid grid-3" v-if="filteredHerbs.length && !loading">
                 <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
             </div>
 
@@ -60,14 +60,13 @@ export default {
                 this.herbs = response.data;
             } catch (error) {
                 console.error("Error fetching herbs:", error);
-                // ข้อมูลสำรองกรณีที่ API ไม่ทำงาน
                 this.herbs = this.getMockHerbs();
             }
         },
         extractCategories() {
             const categorySet = new Set();
             this.herbs.forEach((herb) => {
-                if (herb.Category) {
+                if (herb && herb.Category) {
                     categorySet.add(herb.Category);
                 }
             });
@@ -82,14 +81,20 @@ export default {
             this.filterHerbs();
         },
         filterHerbs() {
+            if (!this.herbs) {
+                this.filteredHerbs = [];
+                return;
+            }
+
             this.filteredHerbs = this.herbs.filter((herb) => {
+                if (!herb) return false;
+
+                const nameMatch = (herb.Name || '').toLowerCase().includes(this.searchQuery);
+                const scientificNameMatch = (herb.ScientificName || '').toLowerCase().includes(this.searchQuery);
+                const descriptionMatch = (herb.Description || '').toLowerCase().includes(this.searchQuery);
+
                 const matchesSearch =
-                    !this.searchQuery ||
-                    herb.Name.toLowerCase().includes(this.searchQuery) ||
-                    herb.ScientificName.toLowerCase().includes(
-                        this.searchQuery,
-                    ) ||
-                    herb.Description.toLowerCase().includes(this.searchQuery);
+                    !this.searchQuery || nameMatch || scientificNameMatch || descriptionMatch;
 
                 const matchesCategory =
                     !this.selectedCategory ||
@@ -105,15 +110,12 @@ export default {
                     ID: 1,
                     Name: "กระเทียม",
                     ScientificName: "Allium sativum L.",
-                    Description:
-                        "กระเทียมเป็นพืชล้มลุกในวงศ์ Alliaceae มีลักษณะเป็นหัวใต้ดิน มีกลิ่นฉุนเฉพาะตัว",
-                    Benefits:
-                        "ช่วยลดคอเลสเตอรอล ลดความดันโลหิต ป้องกันการเกิดลิ่มเลือด",
-                    Usage: "รับประทานสด 5-6 กลีบต่อวัน หรือปรุงอาหาร",
-                    ImageUrl: "https://example.com/garlic.jpg",
+                    Description: "กระเทียมเป็นพืชล้มลุก...",
+                    Benefits: "ช่วยลดคอเลสเตอรอล...",
+                    Usage: "รับประทานสด...",
+                    ImageUrl: "",
                     Category: "พืชในครัวเรือน",
                 },
-                // เพิ่มข้อมูลสมุนไพรอื่นๆ ตามต้องการ
             ];
         },
     },
