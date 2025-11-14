@@ -1,18 +1,44 @@
 <!-- src/components/HerbCard.vue -->
 <template>
     <div class="herb-card card" @click="viewDetails">
+        <!-- Herb Image -->
         <div class="herb-image">
-            <img
-                :src="herb.ImageUrl || '/placeholder-herb.png'"
-                :alt="herb.Name"
-            />
+            <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" />
         </div>
+
+        <!-- Herb Info -->
         <div class="herb-info">
-            <h3 class="herb-name">{{ herb.Name }}</h3>
-            <p class="herb-scientific">{{ herb.ScientificName }}</p>
-            <p class="herb-category">{{ herb.Category }}</p>
-            <div class="herb-description">
-                {{ truncateText(herb.Description, 100) }}
+            <!-- Main Info -->
+            <div>
+                <h3 class="herb-name">{{ herb.Name }}</h3>
+                <div class="herb-description">
+                    <strong>สรรพคุณ:</strong>
+                    {{ truncateText(herb.Description, 80) }}
+                </div>
+                <div class="herb-usage">
+                    <strong>วิธีใช้:</strong> {{ herb.Usage }}
+                </div>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="herb-details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">อัตราจ่ายชดเชย</span>
+                    <span class="detail-value">{{ herb.NHSO_Price || 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">รอบการเบิก</span>
+                    <span class="detail-value">{{ herb.Per_Course || 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">รหัส ICD10</span>
+                    <span class="detail-value">{{ herb.ICD10 || 'N/A' }}</span>
+                </div>
+            </div>
+
+            <!-- Category Tag -->
+            <div class="herb-category-wrapper">
+                <p class="herb-category">{{ herb.Category }}</p>
             </div>
         </div>
     </div>
@@ -44,16 +70,20 @@ export default {
 </script>
 
 <style scoped>
+/* --- Main Card Structure --- */
 .herb-card {
     cursor: pointer;
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
+    border: 1px solid #e2e8f0;
+    background-color: white;
 }
 
+/* --- Image Section --- */
 .herb-image {
-    height: 200px;
+    height: 180px;
     overflow: hidden;
 }
 
@@ -68,40 +98,77 @@ export default {
     transform: scale(1.05);
 }
 
+/* --- Info Section --- */
 .herb-info {
-    padding: 15px;
+    padding: 1rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
+/* --- Typography & Content --- */
 .herb-name {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
     color: var(--primary-color);
+    line-height: 1.3;
 }
 
-.herb-scientific {
-    font-style: italic;
-    color: var(--secondary-color);
-    margin-bottom: 5px;
+.herb-description,
+.herb-usage {
     font-size: 0.9rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.herb-description strong,
+.herb-usage strong {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+/* --- Technical Details Grid --- */
+.herb-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0f4f8;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+}
+
+.detail-label {
+    color: #718096;
+    margin-bottom: 2px;
+}
+
+.detail-value {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+/* --- Category Tag --- */
+.herb-category-wrapper {
+    margin-top: auto;
 }
 
 .herb-category {
     background-color: var(--light-color);
-    color: var(--dark-color);
+    color: var(--primary-color);
     display: inline-block;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-bottom: 10px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
     align-self: flex-start;
-}
-
-.herb-description {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    flex-grow: 1;
 }
 </style>
