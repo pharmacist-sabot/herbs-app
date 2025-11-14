@@ -53,14 +53,14 @@ export default {
             const mockHerbs = {
                 1: {
                     ID: 1,
-                    Name: "กระเทียม",
-                    ScientificName: "Allium sativum L.",
+                    Name: "ยาไพล",
+                    ScientificName: "Zingiber cassumunar Roxb.",
                     Description:
-                        "กระเทียมเป็นพืชล้มลุกในวงศ์ Alliaceae มีลักษณะเป็นหัวใต้ดิน มีกลิ่นฉุนเฉพาะตัว",
+                        "กลไกการออกฤทธิ์ พบว่าน้ำมันไพลลดการอักเสบของกล้ามเนื้อ ปวดข้อและเคล็ดต่างๆ มีรายงานฤทธิ์ในการลดการอักเสบ",
                     Benefits:
-                        "ช่วยลดคอเลสเตอรอล ลดความดันโลหิต ป้องกันการเกิดลิ่มเลือด",
-                    Usage: "รับประทานสด 5-6 กลีบต่อวัน หรือปรุงอาหาร",
-                    ImageUrl: "https://example.com/garlic.jpg",
+                        "ลดการอักเสบของกล้ามเนื้อ ปวดข้อ",
+                    Usage: "ทาและถูเบา ๆ วันละ 2 - 3 ครั้ง บริเวณที่มีอาการปวดเมื่อย",
+                    ImageUrl: "https://raw.githubusercontent.com/pharmacist-sabot/herbs-app-images/refs/heads/main/%E0%B8%A2%E0%B8%B2%E0%B9%84%E0%B8%9E%E0%B8%A5.jpg",
                     Category: "พืชในครัวเรือน",
                 },
                 // เพิ่มข้อมูลสมุนไพรอื่นๆ ตามต้องการ
