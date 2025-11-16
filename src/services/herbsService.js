@@ -1,6 +1,5 @@
 // src/services/herbsService.js
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbyGip0RMUlMwcIulE7tRcfHptx-qKLk2VNuziYxKvHATFn7gjaIeyE8E3Q4nk8qXfd8/exec"; // แทนที่ด้วย URL จาก Google Apps Script
+const API_URL = import.meta.env.VITE_GOOGLE_API_URL;
 
 export default {
   async getAllHerbs() {
