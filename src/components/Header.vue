@@ -1,111 +1,88 @@
 <template>
-  <header class="header">
-    <div class="container">
-      <!-- SVG Logo -->
-      <div class="logo-container">
-        <svg
-          class="logo-icon"
-          viewBox="0 0 48 48"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-        >
-          <!-- พื้นหลังวงกลม -->
-          <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
-          
-          <!-- ใบไม้ -->
-          <path d="M24 10 C20 15, 18 20, 24 24 C30 20, 28 15, 24 10 Z" fill="currentColor" opacity="0.8"/>
-          
-          <!-- ขวดยาเล็กๆ ตรงกลาง -->
-          <rect x="22" y="26" width="4" height="8" rx="1" fill="currentColor"/>
-          <circle cx="24" cy="34" r="2" fill="currentColor"/>
-        </svg>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
 
-        <!-- ข้อความ -->
-        <div class="logo-text">
-          <h1>บัญชียาสมุนไพร</h1>
-          <h2>โรงพยาบาลสระโบสถ์</h2>
-          <p>รายการสมุนไพรที่สำนักงานหลักประกันสุขภาพแห่งชาติ (สปสช.) สนับสนุน</p>
+                <!-- SVG Logo -->
+                <svg class="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="3" fill="none" />
+                    <path d="M22 34 C14 26, 18 17, 28 15 C30 22, 30 29, 22 34 Z" opacity="0.85" />
+                    <path d="M42 34 C50 26, 46 17, 36 15 C34 22, 34 29, 42 34 Z" opacity="0.75" />
+                    <g transform="translate(32 38)">
+                        <rect x="-3" y="-8" width="6" height="16" rx="1.2" />
+                        <rect x="-8" y="-3" width="16" height="6" rx="1.2" />
+                    </g>
+                </svg>
+
+                <div class="logo-text">
+                    <h1>บัญชียาสมุนไพร รพ.สระโบสถ์</h1>
+                    <p>รายการสมุนไพรที่สำนักงานหลักประกันสุขภาพแห่งชาติ (สปสช.) สนับสนุน</p>
+                </div>
+
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
 </template>
 
 <script>
-export default {
-  name: "Header",
-};
+export default { name: "Header" };
 </script>
 
 <style scoped>
 .header {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 20px 40px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 28px 40px;
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .logo-icon {
-  width: 48px;
-  height: 48px;
-  fill: white;
+    width: 62px;
+    height: 62px;
+    flex-shrink: 0;
 }
 
+/* Typography */
 .logo-text h1 {
-  font-size: 2rem;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.logo-text h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  opacity: 0.8;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    line-height: 1.2;
 }
 
 .logo-text p {
-  font-size: 0.9rem;
-  opacity: 0.7;
-  line-height: 1.4;
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.75;
+    line-height: 1.45;
 }
 
-/* Responsive for Mobile */
+/* Mobile */
 @media (max-width: 767px) {
-  .header {
-    padding: 15px 20px;
-  }
+    .header {
+        padding: 20px;
+    }
 
-  .logo-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
+    .logo-container {
+        gap: 15px;
+    }
 
-  .logo-icon {
-    width: 40px;
-    height: 40px;
-  }
+    .logo-icon {
+        width: 54px;
+        height: 54px;
+    }
 
-  .logo-text h1 {
-    font-size: 1.5rem;
-    margin-bottom: 3px;
-  }
+    .logo-text h1 {
+        font-size: 1.5rem;
+    }
 
-  .logo-text h2 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-  }
-
-  .logo-text p {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    line-height: 1.3;
-  }
+    .logo-text p {
+        font-size: 0.8rem;
+    }
 }
 </style>
