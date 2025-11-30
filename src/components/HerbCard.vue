@@ -3,7 +3,11 @@
     <div class="herb-card card">
         <!-- Herb Image -->
         <div class="herb-image">
-            <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy" />
+            <img
+                :src="herb.ImageUrl || '/placeholder-herb.png'"
+                :alt="herb.Name"
+                loading="lazy"
+            />
         </div>
 
         <!-- Herb Info -->
@@ -23,15 +27,19 @@
             <div class="herb-details-grid">
                 <div class="detail-item">
                     <span class="detail-label">อัตราจ่ายชดเชย</span>
-                    <span class="detail-value">{{ herb.NHSO_Price || 'N/A' }}</span>
+                    <span class="detail-value">{{
+                        herb.NHSO_Price || "N/A"
+                    }}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">รอบการเบิก</span>
-                    <span class="detail-value">{{ herb.Per_Course || 'N/A' }}</span>
+                    <span class="detail-value">{{
+                        herb.Per_Course || "N/A"
+                    }}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">รหัส ICD10</span>
-                    <span class="detail-value">{{ herb.ICD10 || 'N/A' }}</span>
+                    <span class="detail-value">{{ herb.ICD10 || "N/A" }}</span>
                 </div>
             </div>
 
@@ -43,17 +51,15 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { Herb } from "@/types/Herb";
 
-const props = defineProps({
-    herb: {
-        type: Object,
-        required: true,
-    },
-});
+defineProps<{
+    herb: Herb;
+}>();
 
-const truncateText = (text, maxLength) => {
-    if (!text || typeof text !== "string") return "";
+const truncateText = (text: string | undefined, maxLength: number): string => {
+    if (!text) return "";
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
 };

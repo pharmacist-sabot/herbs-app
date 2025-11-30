@@ -3,14 +3,27 @@
     <div class="search-bar">
         <div class="container">
             <div class="search-container">
-                <input type="text" v-model="searchQuery" placeholder="ค้นหาสมุนไพร..." @keydown.enter="onSearch"
-                    class="search-input" />
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="ค้นหาสมุนไพร..."
+                    @keydown.enter="onSearch"
+                    class="search-input"
+                />
                 <button @click="onSearch" class="search-btn">ค้นหา</button>
             </div>
             <div class="filter-container">
-                <select v-model="selectedCategory" @change="onFilter" class="filter-select">
+                <select
+                    v-model="selectedCategory"
+                    @change="onFilter"
+                    class="filter-select"
+                >
                     <option value="">ทุกหมวดหมู่</option>
-                    <option v-for="category in categories" :key="category" :value="category">
+                    <option
+                        v-for="category in categories"
+                        :key="category"
+                        :value="category"
+                    >
                         {{ category }}
                     </option>
                 </select>
@@ -19,20 +32,20 @@
     </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { ref } from "vue";
 
-const props = defineProps({
-    categories: {
-        type: Array,
-        required: true,
-    },
-});
+defineProps<{
+    categories: string[];
+}>();
 
-const emit = defineEmits(['search', 'filter']);
+const emit = defineEmits<{
+    (e: "search", query: string): void;
+    (e: "filter", category: string): void;
+}>();
 
-const searchQuery = ref("");
-const selectedCategory = ref("");
+const searchQuery = ref<string>("");
+const selectedCategory = ref<string>("");
 
 const onSearch = () => {
     emit("search", searchQuery.value);

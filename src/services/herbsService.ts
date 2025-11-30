@@ -1,11 +1,16 @@
-// src/services/herbsService.js
+import type { Herb, ApiResponse } from "@/types/Herb";
+
 const API_URL = import.meta.env.VITE_GOOGLE_API_URL;
 
 export default {
-  async getAllHerbs() {
+  async getAllHerbs(): Promise<ApiResponse<Herb[]>> {
     try {
       const response = await fetch(API_URL);
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ApiResponse<Herb[]> = await response.json();
 
       if (data.status === "success") {
         return data;

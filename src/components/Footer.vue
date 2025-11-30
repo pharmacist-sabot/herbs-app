@@ -6,15 +6,15 @@
             </p>
             <p class="footer-copyright">
                 <!-- ใช้ Interpolation {{ }} เพื่อแสดงค่าตัวแปร -->
-                &copy; {{ currentYear }} ลิขสิทธิ์ | พัฒนาโดย ภก. สุรเดช ประถมศักดิ์
+                &copy; {{ currentYear }} ลิขสิทธิ์ | พัฒนาโดย ภก. สุรเดช
+                ประถมศักดิ์
             </p>
         </div>
     </footer>
 </template>
 
-<script setup>
-// Logic การหาวันที่
-const currentYear = new Date().getFullYear();
+<script setup lang="ts">
+const currentYear: number = new Date().getFullYear();
 </script>
 
 <style scoped>

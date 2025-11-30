@@ -2,21 +2,22 @@
     <header class="header">
         <div class="container">
             <div class="logo-container">
-
                 <!-- เรียกใช้ Component Logo แทน SVG ก้อนยักษ์ -->
                 <LogoIcon class="logo-icon" />
 
                 <div class="logo-text">
                     <h1>บัญชียาสมุนไพร รพ.สระโบสถ์</h1>
-                    <p>รายการสมุนไพรที่สำนักงานหลักประกันสุขภาพแห่งชาติ (สปสช.) สนับสนุน</p>
+                    <p>
+                        รายการสมุนไพรที่สำนักงานหลักประกันสุขภาพแห่งชาติ (สปสช.)
+                        สนับสนุน
+                    </p>
                 </div>
-
             </div>
         </div>
     </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import LogoIcon from "@/components/icons/LogoIcon.vue";
 </script>
 
