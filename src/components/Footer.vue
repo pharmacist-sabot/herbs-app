@@ -1,4 +1,3 @@
-<!-- src/components/Footer.vue -->
 <template>
     <footer class="app-footer">
         <div class="container">
@@ -6,14 +5,16 @@
                 อ้างอิงตามประกาศ สปสช. วันที่ 10 เมษายน 2568
             </p>
             <p class="footer-copyright">
-                &copy; 2025 ลิขสิทธิ์ | พัฒนาโดย ภก. สุรเดช ประถมศักดิ์
+                <!-- ใช้ Interpolation {{ }} เพื่อแสดงค่าตัวแปร -->
+                &copy; {{ currentYear }} ลิขสิทธิ์ | พัฒนาโดย ภก. สุรเดช ประถมศักดิ์
             </p>
         </div>
     </footer>
 </template>
 
 <script setup>
-// No logic required
+// Logic การหาวันที่
+const currentYear = new Date().getFullYear();
 </script>
 
 <style scoped>
