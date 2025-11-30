@@ -42,12 +42,14 @@ Follow these steps to set up the project locally.
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/pharmacist-sabot/herbs-app.git
    cd herbs-app
    ```
 
 2. **Install dependencies**
+
    ```bash
    bun install
    # or npm install
@@ -55,6 +57,7 @@ Follow these steps to set up the project locally.
 
 3. **Configure Environment Variables**
    Create a `.env` file in the root directory and add your Google Apps Script API URL:
+
    ```env
    VITE_GOOGLE_API_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
    ```

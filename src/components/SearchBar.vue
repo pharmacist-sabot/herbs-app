@@ -1,101 +1,93 @@
 <!-- src/components/SearchBar.vue -->
 <template>
-    <div class="search-bar">
-        <div class="container">
-            <div class="search-container">
-                <input
-                    type="text"
-                    v-model="searchQuery"
-                    placeholder="ค้นหาสมุนไพร..."
-                    @keydown.enter="onSearch"
-                    class="search-input"
-                />
-                <button @click="onSearch" class="search-btn">ค้นหา</button>
-            </div>
-            <div class="filter-container">
-                <select
-                    v-model="selectedCategory"
-                    @change="onFilter"
-                    class="filter-select"
-                >
-                    <option value="">ทุกหมวดหมู่</option>
-                    <option
-                        v-for="category in categories"
-                        :key="category"
-                        :value="category"
-                    >
-                        {{ category }}
-                    </option>
-                </select>
-            </div>
-        </div>
+  <div class="search-bar">
+    <div class="container">
+      <div class="search-container">
+        <input
+          type="text"
+          v-model="searchQuery"
+          placeholder="ค้นหาสมุนไพร..."
+          @keydown.enter="onSearch"
+          class="search-input"
+        />
+        <button @click="onSearch" class="search-btn">ค้นหา</button>
+      </div>
+      <div class="filter-container">
+        <select v-model="selectedCategory" @change="onFilter" class="filter-select">
+          <option value="">ทุกหมวดหมู่</option>
+          <option v-for="category in categories" :key="category" :value="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
 defineProps<{
-    categories: string[];
+  categories: string[];
 }>();
 
 const emit = defineEmits<{
-    (e: "search", query: string): void;
-    (e: "filter", category: string): void;
+  (e: 'search', query: string): void;
+  (e: 'filter', category: string): void;
 }>();
 
-const searchQuery = ref<string>("");
-const selectedCategory = ref<string>("");
+const searchQuery = ref<string>('');
+const selectedCategory = ref<string>('');
 
 const onSearch = () => {
-    emit("search", searchQuery.value);
+  emit('search', searchQuery.value);
 };
 
 const onFilter = () => {
-    emit("filter", selectedCategory.value);
+  emit('filter', selectedCategory.value);
 };
 </script>
 
 <style scoped>
 .search-bar {
-    background-color: white;
-    padding: 20px 0;
-    border-bottom: 1px solid #e2e8f0;
+  background-color: white;
+  padding: 20px 0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .search-container {
-    display: flex;
-    margin-bottom: 15px;
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .search-input {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #e2e8f0;
-    border-radius: 5px 0 0 5px;
-    font-size: 16px;
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px 0 0 5px;
+  font-size: 16px;
 }
 
 .search-btn {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: var(--transition);
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .search-btn:hover {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .filter-select {
-    padding: 8px 15px;
-    border: 1px solid #e2e8f0;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: white;
-    min-width: 200px;
+  padding: 8px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: white;
+  min-width: 200px;
 }
 </style>

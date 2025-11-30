@@ -13,7 +13,7 @@ export interface Herb {
 }
 
 export interface ApiResponse<T> {
-  status: "success" | "error";
+  status: 'success' | 'error';
   data: T;
   message?: string;
 }
