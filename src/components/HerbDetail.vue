@@ -3,10 +3,7 @@
     <div class="herb-detail" v-if="herb">
         <div class="herb-header">
             <div class="herb-image">
-                <img
-                    :src="herb.ImageUrl || '/placeholder-herb.png'"
-                    :alt="herb.Name"
-                />
+                <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" />
             </div>
             <div class="herb-info">
                 <h1 class="herb-name">{{ herb.Name }}</h1>
@@ -47,24 +44,24 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "HerbDetail",
-    props: {
-        herb: {
-            type: Object,
-            default: null,
-        },
-        loading: {
-            type: Boolean,
-            default: false,
-        },
+<script setup>
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
+    herb: {
+        type: Object,
+        default: null,
     },
-    methods: {
-        goBack() {
-            this.$router.push({ name: "home" });
-        },
+    loading: {
+        type: Boolean,
+        default: false,
     },
+});
+
+const router = useRouter();
+
+const goBack = () => {
+    router.push({ name: "home" });
 };
 </script>
 

@@ -3,12 +3,11 @@
     <div class="herb-card card" @click="viewDetails">
         <!-- Herb Image -->
         <div class="herb-image">
-            <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" />
+            <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy" />
         </div>
 
         <!-- Herb Info -->
         <div class="herb-info">
-            <!-- Main Info -->
             <div>
                 <h3 class="herb-name">{{ herb.Name }}</h3>
                 <div class="herb-description">
@@ -44,33 +43,33 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "HerbCard",
-    props: {
-        herb: {
-            type: Object,
-            required: true,
-        },
+<script setup>
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
+    herb: {
+        type: Object,
+        required: true,
     },
-    methods: {
-        viewDetails() {
-            this.$router.push({
-                name: "herb-detail",
-                params: { id: this.herb.ID },
-            });
-        },
-        truncateText(text, maxLength) {
-            if (!text || typeof text !== "string") return "";
-            if (text.length <= maxLength) return text;
-            return text.substring(0, maxLength) + "...";
-        },
-    },
+});
+
+const router = useRouter();
+
+const viewDetails = () => {
+    router.push({
+        name: "herb-detail",
+        params: { id: props.herb.ID },
+    });
+};
+
+const truncateText = (text, maxLength) => {
+    if (!text || typeof text !== "string") return "";
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
 };
 </script>
 
 <style scoped>
-/* --- Main Card Structure --- */
 .herb-card {
     cursor: pointer;
     overflow: hidden;
@@ -81,7 +80,6 @@ export default {
     background-color: white;
 }
 
-/* --- Image Section --- */
 .herb-image {
     height: 180px;
     overflow: hidden;
@@ -98,7 +96,6 @@ export default {
     transform: scale(1.05);
 }
 
-/* --- Info Section --- */
 .herb-info {
     padding: 1rem;
     flex-grow: 1;
@@ -108,7 +105,6 @@ export default {
     gap: 1rem;
 }
 
-/* --- Typography & Content --- */
 .herb-name {
     font-size: 1.25rem;
     font-weight: 600;
@@ -131,7 +127,6 @@ export default {
     color: var(--dark-color);
 }
 
-/* --- Technical Details Grid --- */
 .herb-details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -156,7 +151,6 @@ export default {
     color: var(--dark-color);
 }
 
-/* --- Category Tag --- */
 .herb-category-wrapper {
     margin-top: auto;
 }

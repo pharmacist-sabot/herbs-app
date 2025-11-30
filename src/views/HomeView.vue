@@ -24,102 +24,85 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
 import Header from "@/components/Header.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import HerbCard from "@/components/HerbCard.vue";
 import herbsService from "@/services/herbsService";
 
-export default {
-    name: "HomeView",
-    components: {
-        Header,
-        SearchBar,
-        HerbCard,
-    },
-    data() {
-        return {
-            herbs: [],
-            filteredHerbs: [],
-            categories: [],
-            loading: true,
-            searchQuery: "",
-            selectedCategory: "",
-        };
-    },
-    async created() {
-        await this.fetchHerbs();
-        this.extractCategories();
-        this.filteredHerbs = [...this.herbs];
-        this.loading = false;
-    },
-    methods: {
-        async fetchHerbs() {
-            try {
-                const response = await herbsService.getAllHerbs();
-                this.herbs = response.data;
-            } catch (error) {
-                console.error("Error fetching herbs:", error);
-                this.herbs = this.getMockHerbs();
-            }
-        },
-        extractCategories() {
-            const categorySet = new Set();
-            this.herbs.forEach((herb) => {
-                if (herb && herb.Category) {
-                    categorySet.add(herb.Category);
-                }
-            });
-            this.categories = Array.from(categorySet);
-        },
-        handleSearch(query) {
-            this.searchQuery = query.toLowerCase();
-            this.filterHerbs();
-        },
-        handleFilter(category) {
-            this.selectedCategory = category;
-            this.filterHerbs();
-        },
-        filterHerbs() {
-            if (!this.herbs) {
-                this.filteredHerbs = [];
-                return;
-            }
+// State
+const herbs = ref([]);
+const loading = ref(true);
+const searchQuery = ref("");
+const selectedCategory = ref("");
 
-            this.filteredHerbs = this.herbs.filter((herb) => {
-                if (!herb) return false;
+// Computed Properties
+const categories = computed(() => {
+    const categorySet = new Set();
+    herbs.value.forEach((herb) => {
+        if (herb && herb.Category) {
+            categorySet.add(herb.Category);
+        }
+    });
+    return Array.from(categorySet);
+});
 
-                const nameMatch = (herb.Name || '').toLowerCase().includes(this.searchQuery);
-                const scientificNameMatch = (herb.ScientificName || '').toLowerCase().includes(this.searchQuery);
-                const descriptionMatch = (herb.Description || '').toLowerCase().includes(this.searchQuery);
+const filteredHerbs = computed(() => {
+    if (!herbs.value) return [];
 
-                const matchesSearch =
-                    !this.searchQuery || nameMatch || scientificNameMatch || descriptionMatch;
+    return herbs.value.filter((herb) => {
+        if (!herb) return false;
 
-                const matchesCategory =
-                    !this.selectedCategory ||
-                    herb.Category === this.selectedCategory;
+        const q = searchQuery.value.toLowerCase();
+        const nameMatch = (herb.Name || '').toLowerCase().includes(q);
+        const scientificNameMatch = (herb.ScientificName || '').toLowerCase().includes(q);
+        const descriptionMatch = (herb.Description || '').toLowerCase().includes(q);
 
-                return matchesSearch && matchesCategory;
-            });
-        },
-        getMockHerbs() {
-            // ข้อมูลสำรองสำหรับการพัฒนา
-            return [
-                {
-                    ID: 1,
-                    Name: "กระเทียม",
-                    ScientificName: "Allium sativum L.",
-                    Description: "กระเทียมเป็นพืชล้มลุก...",
-                    Benefits: "ช่วยลดคอเลสเตอรอล...",
-                    Usage: "รับประทานสด...",
-                    ImageUrl: "",
-                    Category: "พืชในครัวเรือน",
-                },
-            ];
-        },
-    },
+        const matchesSearch = !q || nameMatch || scientificNameMatch || descriptionMatch;
+        const matchesCategory = !selectedCategory.value || herb.Category === selectedCategory.value;
+
+        return matchesSearch && matchesCategory;
+    });
+});
+
+// Methods
+const handleSearch = (query) => {
+    searchQuery.value = query;
 };
+
+const handleFilter = (category) => {
+    selectedCategory.value = category;
+};
+
+const getMockHerbs = () => {
+    // ข้อมูลสำรองสำหรับการพัฒนา
+    return [
+        {
+            ID: 1,
+            Name: "กระเทียม",
+            ScientificName: "Allium sativum L.",
+            Description: "กระเทียมเป็นพืชล้มลุก...",
+            Benefits: "ช่วยลดคอเลสเตอรอล...",
+            Usage: "รับประทานสด...",
+            ImageUrl: "",
+            Category: "พืชในครัวเรือน",
+        },
+    ];
+};
+
+// Lifecycle
+onMounted(async () => {
+    try {
+        const response = await herbsService.getAllHerbs();
+        herbs.value = response.data;
+    } catch (error) {
+        console.error("Error fetching herbs:", error);
+        herbs.value = getMockHerbs();
+    } finally {
+        loading.value = false;
+    }
+});
 </script>
 
 <style scoped>

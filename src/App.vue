@@ -6,15 +6,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import Footer from "@/components/Footer.vue";
-
-export default {
-    name: "App",
-    components: {
-        Footer,
-    },
-};
 </script>
 
 <style>

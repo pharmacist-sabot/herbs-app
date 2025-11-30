@@ -19,29 +19,27 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "SearchBar",
-    props: {
-        categories: {
-            type: Array,
-            required: true,
-        },
+<script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+    categories: {
+        type: Array,
+        required: true,
     },
-    data() {
-        return {
-            searchQuery: "",
-            selectedCategory: "",
-        };
-    },
-    methods: {
-        onSearch() {
-            this.$emit("search", this.searchQuery);
-        },
-        onFilter() {
-            this.$emit("filter", this.selectedCategory);
-        },
-    },
+});
+
+const emit = defineEmits(['search', 'filter']);
+
+const searchQuery = ref("");
+const selectedCategory = ref("");
+
+const onSearch = () => {
+    emit("search", searchQuery.value);
+};
+
+const onFilter = () => {
+    emit("filter", selectedCategory.value);
 };
 </script>
 

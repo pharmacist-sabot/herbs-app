@@ -12,10 +12,8 @@
     </footer>
 </template>
 
-<script>
-export default {
-    name: "Footer",
-};
+<script setup>
+// No logic required
 </script>
 
 <style scoped>
