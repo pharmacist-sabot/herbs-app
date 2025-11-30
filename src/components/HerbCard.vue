@@ -1,6 +1,6 @@
 <!-- src/components/HerbCard.vue -->
 <template>
-    <div class="herb-card card" @click="viewDetails">
+    <div class="herb-card card">
         <!-- Herb Image -->
         <div class="herb-image">
             <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy" />
@@ -44,7 +44,6 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
 
 const props = defineProps({
     herb: {
@@ -52,15 +51,6 @@ const props = defineProps({
         required: true,
     },
 });
-
-const router = useRouter();
-
-const viewDetails = () => {
-    router.push({
-        name: "herb-detail",
-        params: { id: props.herb.ID },
-    });
-};
 
 const truncateText = (text, maxLength) => {
     if (!text || typeof text !== "string") return "";
@@ -71,7 +61,7 @@ const truncateText = (text, maxLength) => {
 
 <style scoped>
 .herb-card {
-    cursor: pointer;
+    cursor: default;
     overflow: hidden;
     height: 100%;
     display: flex;
