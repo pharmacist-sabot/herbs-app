@@ -5,19 +5,19 @@
     <SearchBar :categories="categories" @search="handleSearch" @filter="handleFilter" />
 
     <div class="container">
-      <div class="herbs-count" v-if="filteredHerbs.length && !loading">
+      <div v-if="filteredHerbs.length && !loading" class="herbs-count">
         <p>พบ {{ filteredHerbs.length }} รายการ</p>
       </div>
 
-      <div class="herbs-grid grid grid-3" v-if="filteredHerbs.length && !loading">
+      <div v-if="filteredHerbs.length && !loading" class="herbs-grid grid grid-3">
         <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
       </div>
 
-      <div class="no-results" v-else-if="!loading">
+      <div v-else-if="!loading" class="no-results">
         <p>ไม่พบสมุนไพรที่ตรงกับการค้นหา</p>
       </div>
 
-      <div class="loading" v-if="loading">
+      <div v-if="loading" class="loading">
         <p>กำลังโหลดข้อมูล...</p>
       </div>
     </div>

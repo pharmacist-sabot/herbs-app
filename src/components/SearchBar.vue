@@ -4,16 +4,16 @@
     <div class="container">
       <div class="search-container">
         <input
-          type="text"
           v-model="searchQuery"
+          type="text"
           placeholder="ค้นหาสมุนไพร..."
-          @keydown.enter="onSearch"
           class="search-input"
+          @keydown.enter="onSearch"
         />
-        <button @click="onSearch" class="search-btn">ค้นหา</button>
+        <button class="search-btn" @click="onSearch">ค้นหา</button>
       </div>
       <div class="filter-container">
-        <select v-model="selectedCategory" @change="onFilter" class="filter-select">
+        <select v-model="selectedCategory" class="filter-select" @change="onFilter">
           <option value="">ทุกหมวดหมู่</option>
           <option v-for="category in categories" :key="category" :value="category">
             {{ category }}
