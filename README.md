@@ -4,6 +4,8 @@
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-000?style=for-the-badge&logo=bun&logoColor=white)](https://bun.sh/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
@@ -11,11 +13,12 @@
 
 The **Thai Herbal NHSO Support App** is a digital formulary designed for healthcare professionals at Sabot Hospital and beyond. It provides instant access to detailed information about herbal medicines covered by the National Health Security Office (NHSO).
 
-Built with **Vue 3** and **Vite**, this application prioritizes performance and user experience. It leverages **Google Sheets** as a headless CMS, allowing pharmacists to update medical data easily without touching a line of code.
+Built with **Vue 3**, **TypeScript**, and **Vite**, this application prioritizes performance, type safety, and user experience. It leverages **Google Sheets** as a headless CMS, allowing pharmacists to update medical data easily without touching a line of code.
 
 ## ✨ Key Features
 
 - **⚡ Blazing Fast**: Powered by Vite and Vue 3 for instant page loads and interactions.
+- **🛡️ Type Safe**: Built with TypeScript for robust and maintainable code.
 - **📱 PWA Support**: Fully installable on mobile and desktop devices with offline capabilities.
 - **🔍 Instant Search**: Real-time filtering by herb name, description, or category.
 - **📄 Google Sheets Backend**: Data is fetched dynamically from a Google Sheet via Google Apps Script.
@@ -24,6 +27,7 @@ Built with **Vue 3** and **Vite**, this application prioritizes performance and 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Vue 3](https://vuejs.org/) (Composition API)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Routing**: [Vue Router](https://router.vuejs.org/)
 - **PWA**: [Vite Plugin PWA](https://vite-pwa-org.netlify.app/)
@@ -36,7 +40,7 @@ Follow these steps to set up the project locally.
 
 ### Prerequisites
 
-- **Node.js** (v18+) or **Bun** (v1.0+)
+- **Bun** (v1.0+) or **Node.js** (v18+)
 - A Google Apps Script deployment URL (for the API)
 
 ### Installation
@@ -77,12 +81,14 @@ herbs-app/
 │   ├── assets/          # CSS and images
 │   ├── components/      # Reusable Vue components
 │   ├── router/          # Vue Router configuration
-│   ├── services/        # API services (herbsService.js)
+│   ├── services/        # API services (herbsService.ts)
+│   ├── types/           # TypeScript type definitions
 │   ├── views/           # Page views
 │   ├── App.vue          # Root component
-│   └── main.js          # Application entry point
+│   └── main.ts          # Application entry point
 ├── .env                 # Environment variables
-├── vite.config.js       # Vite and PWA configuration
+├── vite.config.ts       # Vite and PWA configuration
+├── tsconfig.json        # TypeScript configuration
 └── package.json         # Dependencies and scripts
 ```
 
@@ -99,9 +105,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
-
-<div align="center">
-  <sub>Built with ❤️ by the Sabot Hospital Pharmacy Team</sub>
-</div>
