@@ -1,29 +1,4 @@
 <!-- src/components/SearchBar.vue -->
-<template>
-  <div class="search-bar">
-    <div class="container">
-      <div class="search-container">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="ค้นหาสมุนไพร..."
-          class="search-input"
-          @keydown.enter="onSearch"
-        />
-        <button class="search-btn" @click="onSearch">ค้นหา</button>
-      </div>
-      <div class="filter-container">
-        <select v-model="selectedCategory" class="filter-select" @change="onFilter">
-          <option value="">ทุกหมวดหมู่</option>
-          <option v-for="category in categories" :key="category" :value="category">
-            {{ category }}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
 
@@ -39,14 +14,43 @@ const emit = defineEmits<{
 const searchQuery = ref<string>('');
 const selectedCategory = ref<string>('');
 
-const onSearch = () => {
+function onSearch() {
   emit('search', searchQuery.value);
-};
+}
 
-const onFilter = () => {
+function onFilter() {
   emit('filter', selectedCategory.value);
-};
+}
 </script>
+
+<template>
+  <div class="search-bar">
+    <div class="container">
+      <div class="search-container">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="ค้นหาสมุนไพร..."
+          class="search-input"
+          @keydown.enter="onSearch"
+        >
+        <button class="search-btn" @click="onSearch">
+          ค้นหา
+        </button>
+      </div>
+      <div class="filter-container">
+        <select v-model="selectedCategory" class="filter-select" @change="onFilter">
+          <option value="">
+            ทุกหมวดหมู่
+          </option>
+          <option v-for="category in categories" :key="category" :value="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .search-bar {

@@ -1,4 +1,4 @@
-import type { Herb, ApiResponse } from '@/types/Herb';
+import type { ApiResponse, Herb } from '@/types/Herb';
 
 const API_URL = import.meta.env.VITE_GOOGLE_API_URL;
 
@@ -14,10 +14,12 @@ export default {
 
       if (data.status === 'success') {
         return data;
-      } else {
+      }
+      else {
         throw new Error(data.message || 'Failed to fetch herbs');
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error in getAllHerbs:', error);
       throw error;
     }

@@ -1,4 +1,8 @@
 <!-- src/App.vue -->
+<script setup lang="ts">
+import Footer from '@/components/Footer.vue';
+</script>
+
 <template>
   <div class="main-layout">
     <router-view />
@@ -6,10 +10,6 @@
     <Footer />
   </div>
 </template>
-
-<script setup lang="ts">
-import Footer from '@/components/Footer.vue';
-</script>
 
 <style>
 .main-layout {

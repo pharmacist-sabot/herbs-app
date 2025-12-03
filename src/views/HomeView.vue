@@ -1,3 +1,84 @@
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+
+import type { Herb } from '@/types/Herb';
+
+import Header from '@/components/Header.vue';
+import HerbCard from '@/components/HerbCard.vue';
+import SearchBar from '@/components/SearchBar.vue';
+import herbsService from '@/services/herbs-service';
+
+// State
+const herbs = ref<Herb[]>([]);
+const loading = ref<boolean>(true);
+const error = ref<string | null>(null);
+const searchQuery = ref<string>('');
+const selectedCategory = ref<string>('');
+
+// Computed Properties
+const categories = computed<string[]>(() => {
+  const categorySet = new Set<string>();
+  herbs.value.forEach((herb) => {
+    if (herb && herb.Category) {
+      categorySet.add(herb.Category);
+    }
+  });
+  return Array.from(categorySet);
+});
+
+const filteredHerbs = computed<Herb[]>(() => {
+  if (!herbs.value)
+    return [];
+
+  return herbs.value.filter((herb) => {
+    if (!herb)
+      return false;
+
+    const q = searchQuery.value.toLowerCase();
+    const nameMatch = (herb.Name || '').toLowerCase().includes(q);
+    const scientificNameMatch = (herb.ScientificName || '').toLowerCase().includes(q);
+    const descriptionMatch = (herb.Description || '').toLowerCase().includes(q);
+
+    const matchesSearch = !q || nameMatch || scientificNameMatch || descriptionMatch;
+    const matchesCategory = !selectedCategory.value || herb.Category === selectedCategory.value;
+
+    return matchesSearch && matchesCategory;
+  });
+});
+
+// Methods
+function handleSearch(query: string) {
+  searchQuery.value = query;
+}
+
+function handleFilter(category: string) {
+  selectedCategory.value = category;
+}
+
+// แยก Logic การดึงข้อมูลออกมาเป็นฟังก์ชัน เพื่อให้กด Retry ได้
+async function fetchHerbs() {
+  loading.value = true;
+  error.value = null; // Reset error ก่อนดึงใหม่
+  try {
+    const response = await herbsService.getAllHerbs();
+    herbs.value = response.data;
+  }
+  catch (err) {
+    console.error('Error fetching herbs:', err);
+    error.value = 'ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต';
+    herbs.value = [];
+  }
+  finally {
+    loading.value = false;
+  }
+}
+
+// Lifecycle
+onMounted(() => {
+  fetchHerbs();
+});
+</script>
+
 <template>
   <div class="home-view">
     <Header />
@@ -7,7 +88,9 @@
       <!-- กรณีเกิด Error -->
       <div v-if="error" class="error-message">
         <p>⚠️ {{ error }}</p>
-        <button class="retry-btn" @click="fetchHerbs">ลองใหม่อีกครั้ง</button>
+        <button class="retry-btn" @click="fetchHerbs">
+          ลองใหม่อีกครั้ง
+        </button>
       </div>
 
       <!-- กรณีเจอข้อมูล -->
@@ -32,81 +115,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import Header from '@/components/Header.vue';
-import SearchBar from '@/components/SearchBar.vue';
-import HerbCard from '@/components/HerbCard.vue';
-import herbsService from '@/services/herbsService';
-import type { Herb } from '@/types/Herb';
-
-// State
-const herbs = ref<Herb[]>([]);
-const loading = ref<boolean>(true);
-const error = ref<string | null>(null);
-const searchQuery = ref<string>('');
-const selectedCategory = ref<string>('');
-
-// Computed Properties
-const categories = computed<string[]>(() => {
-  const categorySet = new Set<string>();
-  herbs.value.forEach((herb) => {
-    if (herb && herb.Category) {
-      categorySet.add(herb.Category);
-    }
-  });
-  return Array.from(categorySet);
-});
-
-const filteredHerbs = computed<Herb[]>(() => {
-  if (!herbs.value) return [];
-
-  return herbs.value.filter((herb) => {
-    if (!herb) return false;
-
-    const q = searchQuery.value.toLowerCase();
-    const nameMatch = (herb.Name || '').toLowerCase().includes(q);
-    const scientificNameMatch = (herb.ScientificName || '').toLowerCase().includes(q);
-    const descriptionMatch = (herb.Description || '').toLowerCase().includes(q);
-
-    const matchesSearch = !q || nameMatch || scientificNameMatch || descriptionMatch;
-    const matchesCategory = !selectedCategory.value || herb.Category === selectedCategory.value;
-
-    return matchesSearch && matchesCategory;
-  });
-});
-
-// Methods
-const handleSearch = (query: string) => {
-  searchQuery.value = query;
-};
-
-const handleFilter = (category: string) => {
-  selectedCategory.value = category;
-};
-
-// แยก Logic การดึงข้อมูลออกมาเป็นฟังก์ชัน เพื่อให้กด Retry ได้
-const fetchHerbs = async () => {
-  loading.value = true;
-  error.value = null; // Reset error ก่อนดึงใหม่
-  try {
-    const response = await herbsService.getAllHerbs();
-    herbs.value = response.data;
-  } catch (err) {
-    console.error('Error fetching herbs:', err);
-    error.value = 'ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต';
-    herbs.value = [];
-  } finally {
-    loading.value = false;
-  }
-};
-
-// Lifecycle
-onMounted(() => {
-  fetchHerbs();
-});
-</script>
 
 <style scoped>
 .home-view {
@@ -136,7 +144,7 @@ onMounted(() => {
 .error-message {
   text-align: center;
   padding: 50px 20px;
-  color: #e53e3e; /* สีแดง */
+  color: #e53e3e;
   background-color: #fff5f5;
   border-radius: 8px;
   margin-top: 20px;

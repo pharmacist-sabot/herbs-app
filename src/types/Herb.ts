@@ -1,4 +1,4 @@
-export interface Herb {
+export type Herb = {
   ID: number | string;
   Name: string;
   ScientificName?: string;
@@ -10,10 +10,10 @@ export interface Herb {
   Per_Course?: string;
   ICD10?: string;
   Benefits?: string;
-}
+};
 
-export interface ApiResponse<T> {
+export type ApiResponse<T> = {
   status: 'success' | 'error';
   data: T;
   message?: string;
-}
+};

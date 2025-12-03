@@ -1,20 +1,41 @@
 <!-- src/components/HerbCard.vue -->
+<script setup lang="ts">
+import type { Herb } from '@/types/Herb';
+
+defineProps<{
+  herb: Herb;
+}>();
+
+function truncateText(text: string | undefined, maxLength: number): string {
+  if (!text)
+    return '';
+  if (text.length <= maxLength)
+    return text;
+  return `${text.substring(0, maxLength)}...`;
+}
+</script>
+
 <template>
   <div class="herb-card card">
     <!-- Herb Image -->
     <div class="herb-image">
-      <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy" />
+      <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy">
     </div>
 
     <!-- Herb Info -->
     <div class="herb-info">
       <div>
-        <h3 class="herb-name">{{ herb.Name }}</h3>
+        <h3 class="herb-name">
+          {{ herb.Name }}
+        </h3>
+
         <div class="herb-description">
           <strong>สรรพคุณ:</strong>
           {{ truncateText(herb.Description, 80) }}
         </div>
-        <div class="herb-usage"><strong>วิธีใช้:</strong> {{ herb.Usage }}</div>
+        <div class="herb-usage">
+          <strong>วิธีใช้:</strong> {{ herb.Usage }}
+        </div>
       </div>
 
       <!-- Technical Details -->
@@ -35,25 +56,13 @@
 
       <!-- Category Tag -->
       <div class="herb-category-wrapper">
-        <p class="herb-category">{{ herb.Category }}</p>
+        <p class="herb-category">
+          {{ herb.Category }}
+        </p>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { Herb } from '@/types/Herb';
-
-defineProps<{
-  herb: Herb;
-}>();
-
-const truncateText = (text: string | undefined, maxLength: number): string => {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '...';
-};
-</script>
 
 <style scoped>
 .herb-card {

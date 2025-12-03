@@ -1,73 +1,55 @@
 // eslint.config.mjs
 import antfu from '@antfu/eslint-config';
 
-export default antfu(
-  {
-    // 1. บอกให้รู้ว่าเป็น Vue App (ปกติ auto-detect แต่ใส่ไว้ชัวร์กว่า)
-    type: 'app',
+export default antfu({
+  type: 'app',
+  typescript: true,
+  vue: true,
+  formatters: true,
 
-    // 2. เปิดใช้งาน options
-    typescript: true,
-    vue: true,
-    formatters: true,
-
-    // 3. สไตล์ที่คุณเลือก (Semicolon + Double Quotes)
-    stylistic: {
-      indent: 2,
-      semi: true, // คุณเลือกมี ;
-      quotes: 'double', // คุณเลือก " "
-    },
-
-    // 4. เพิ่ม ignores จากไฟล์เก่าของคุณเพื่อความปลอดภัย
-    ignores: [
-      '**/dist/**',
-      'public/**',
-      'src/vite-env.d.ts', // บางทีไฟล์นี้อาจขัดกฎบางอย่าง
-    ],
+  stylistic: {
+    indent: 2,
+    semi: true,
+    quotes: 'single',
   },
-  {
-    rules: {
-      // --- TypeScript ---
-      'ts/no-redeclare': 'off',
-      // ยอมรับการเปลี่ยน interface เป็น type (ตามที่คุณตั้งมา)
-      'ts/consistent-type-definitions': ['error', 'type'],
 
-      // --- General ---
-      'no-console': ['warn'],
-      'antfu/no-top-level-await': ['off'], // Vite รองรับสิ่งนี้ ปิดไปได้เลย
+  ignores: [
+    '**/dist/**',
+    'public/**',
+    'src/vite-env.d.ts',
+    'README.md',
+  ],
+}, {
+  rules: {
+    // --- TypeScript ---
+    'ts/no-redeclare': 'off',
+    // ยอมรับการเปลี่ยน interface เป็น type
+    'ts/consistent-type-definitions': ['error', 'type'],
 
-      // --- Node / Env ---
-      'node/prefer-global/process': ['off'],
-      'node/no-process-env': ['error'], // ดีมาก! บังคับใช้ import.meta.env
+    // --- General ---
+    'no-console': ['warn'],
+    'antfu/no-top-level-await': ['off'],
 
-      // --- Perfectionist (Sorting) ---
-      // Ant Fu มี sorting ในตัวอยู่แล้ว แต่ถ้าชอบ plugin นี้ก็ใส่ได้
-      // แต่ระวังมันตีกันเอง ถ้าไม่ซีเรียสเรื่องเรียงบรรทัดแบบเป๊ะเวอร์ ตัดออกได้ครับ
-      'perfectionist/sort-imports': [
-        'error',
-        {
-          tsconfigRootDir: '.',
-        },
-      ],
+    // --- Node / Env ---
+    'node/prefer-global/process': ['off'],
+    'node/no-process-env': ['error'],
 
-      // --- 🚨 FIXED: Filename Casing ---
-      // อนุญาตให้ Vue Component เป็น PascalCase ได้
-      'unicorn/filename-case': [
-        'error',
-        {
-          cases: {
-            kebabCase: true,
-            pascalCase: true,
-          },
-          // หรือถ้าจะเอาละเอียด: บังคับ Pascal แค่ไฟล์ .vue
-          // ignore: ["README.md"]
-        },
-      ],
+    // --- Perfectionist (Sorting) ---
+    'perfectionist/sort-imports': ['error', {
+      tsconfigRootDir: '.',
+    }],
 
-      // --- Vue Specifics ---
-      // กฎนี้บังคับชื่อ Component ต้องมี 2 คำ (เช่น TodoItem)
-      // แต่ App คุณมี Footer, Header (คำเดียว) ถ้าไม่อยากแก้ชื่อไฟล์ ให้ปิดกฎนี้
-      'vue/multi-word-component-names': 'off',
-    },
+    // --- Filename Casing ---
+    // อนุญาตให้ Vue Component เป็น PascalCase ได้
+    'unicorn/filename-case': ['error', {
+      cases: {
+        kebabCase: true,
+        pascalCase: true,
+      },
+    }],
+
+    // --- Vue Specifics ---
+    // กฎนี้บังคับชื่อ Component ต้องมี 2 คำ (เช่น TodoItem)
+    'vue/multi-word-component-names': 'off',
   },
-);
+});

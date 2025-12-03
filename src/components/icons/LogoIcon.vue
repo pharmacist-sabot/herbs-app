@@ -1,4 +1,8 @@
 <!-- src/components/icons/LogoIcon.vue -->
+<script setup lang="ts">
+// Vue 3 จะส่งต่อ Attributes (เช่น class, style) ไปยัง root element (svg) โดยอัตโนมัติ
+</script>
+
 <template>
   <svg
     viewBox="240 160 500 680"
@@ -22,7 +26,3 @@
     />
   </svg>
 </template>
-
-<script setup lang="ts">
-// Vue 3 จะส่งต่อ Attributes (เช่น class, style) ไปยัง root element (svg) โดยอัตโนมัติ
-</script>

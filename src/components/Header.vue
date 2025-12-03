@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import LogoIcon from '@/components/icons/LogoIcon.vue';
+</script>
+
 <template>
   <header class="header">
     <div class="container">
@@ -13,10 +17,6 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import LogoIcon from '@/components/icons/LogoIcon.vue';
-</script>
 
 <style scoped>
 .header {
