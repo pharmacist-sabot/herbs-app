@@ -5,6 +5,7 @@ import type { Herb } from '@/types/Herb';
 
 import Header from '@/components/Header.vue';
 import HerbCard from '@/components/HerbCard.vue';
+import HerbCardSkeleton from '@/components/HerbCardSkeleton.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import herbsService from '@/services/herbs-service';
 
@@ -46,7 +47,6 @@ const filteredHerbs = computed<Herb[]>(() => {
   });
 });
 
-// Methods
 function handleSearch(query: string) {
   searchQuery.value = query;
 }
@@ -55,10 +55,9 @@ function handleFilter(category: string) {
   selectedCategory.value = category;
 }
 
-// แยก Logic การดึงข้อมูลออกมาเป็นฟังก์ชัน เพื่อให้กด Retry ได้
 async function fetchHerbs() {
   loading.value = true;
-  error.value = null; // Reset error ก่อนดึงใหม่
+  error.value = null;
   try {
     const response = await herbsService.getAllHerbs();
     herbs.value = response.data;
@@ -73,7 +72,6 @@ async function fetchHerbs() {
   }
 }
 
-// Lifecycle
 onMounted(() => {
   fetchHerbs();
 });
@@ -85,7 +83,7 @@ onMounted(() => {
     <SearchBar :categories="categories" @search="handleSearch" @filter="handleFilter" />
 
     <div class="container">
-      <!-- กรณีเกิด Error -->
+      <!-- Error -->
       <div v-if="error" class="error-message">
         <p>⚠️ {{ error }}</p>
         <button class="retry-btn" @click="fetchHerbs">
@@ -93,25 +91,31 @@ onMounted(() => {
         </button>
       </div>
 
-      <!-- กรณีเจอข้อมูล -->
-      <div v-else-if="filteredHerbs.length && !loading" class="herbs-count">
-        <p>พบ {{ filteredHerbs.length }} รายการ</p>
+      <div v-else-if="loading" class="loading-wrapper">
+        <div class="loading-header">
+          <span class="spinner" />
+          <p>กำลังดาวน์โหลดข้อมูลสมุนไพร...</p>
+        </div>
+
+        <!-- Skeleton Grid -->
+        <div class="herbs-grid grid grid-3">
+          <HerbCardSkeleton v-for="n in 6" :key="n" />
+        </div>
       </div>
 
-      <!-- แสดงรายการสมุนไพร -->
-      <div v-if="filteredHerbs.length && !loading && !error" class="herbs-grid grid grid-3">
-        <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
-      </div>
+      <template v-else>
+        <div v-if="filteredHerbs.length" class="herbs-count">
+          <p>พบ {{ filteredHerbs.length }} รายการ</p>
+        </div>
 
-      <!-- กรณีไม่เจอข้อมูลจากการค้นหา -->
-      <div v-else-if="!loading && !error" class="no-results">
-        <p>ไม่พบสมุนไพรที่ตรงกับการค้นหา</p>
-      </div>
+        <div v-if="filteredHerbs.length" class="herbs-grid grid grid-3">
+          <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
+        </div>
 
-      <!-- กำลังโหลด -->
-      <div v-if="loading" class="loading">
-        <p>กำลังโหลดข้อมูล...</p>
-      </div>
+        <div v-else class="no-results">
+          <p>ไม่พบสมุนไพรที่ตรงกับการค้นหา</p>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -120,6 +124,35 @@ onMounted(() => {
 .home-view {
   min-height: 100vh;
   flex-grow: 1;
+}
+
+.loading-wrapper {
+  margin-top: 20px;
+}
+
+.loading-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e2e8f0;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .herbs-count {
@@ -133,14 +166,12 @@ onMounted(() => {
   padding-bottom: 2rem;
 }
 
-.no-results,
-.loading {
+.no-results {
   text-align: center;
   padding: 50px 20px;
   color: var(--text-color);
 }
 
-/* Style for Error Message */
 .error-message {
   text-align: center;
   padding: 50px 20px;
@@ -160,9 +191,5 @@ onMounted(() => {
   border-radius: 4px;
   cursor: pointer;
   font-family: var(--font-family-sans);
-}
-
-.retry-btn:hover {
-  opacity: 0.9;
 }
 </style>
