@@ -3,75 +3,21 @@ import LogoIcon from '@/components/icons/LogoIcon.vue';
 </script>
 
 <template>
-  <header class="header">
-    <div class="container">
-      <div class="logo-container">
-        <!-- เรียกใช้ Component Logo แทน SVG ก้อนยักษ์ -->
-        <LogoIcon class="logo-icon" />
+  <header class="bg-primary text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 md:py-5">
+      <div class="flex items-center gap-4 md:gap-5">
+        <!-- Logo -->
+        <LogoIcon class="w-12 h-12 md:w-14 md:h-14 shrink-0 text-white drop-shadow-sm" />
 
-        <div class="logo-text">
-          <h1>บัญชียาสมุนไพร รพ.สระโบสถ์</h1>
-          <p>รายการสมุนไพรที่สำนักงานหลักประกันสุขภาพแห่งชาติ (สปสช.) สนับสนุน</p>
+        <div class="flex flex-col">
+          <h1 class="text-xl md:text-2xl font-bold leading-tight">
+            บัญชียาสมุนไพร รพ.สระโบสถ์
+          </h1>
+          <p class="text-xs md:text-sm text-white/80 font-light mt-0.5">
+            รายการสมุนไพรที่สปสช.สนับสนุนจ่ายชดเชย
+          </p>
         </div>
       </div>
     </div>
   </header>
 </template>
-
-<style scoped>
-.header {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 28px 40px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.logo-icon {
-  width: 62px;
-  height: 62px;
-  flex-shrink: 0;
-}
-
-.logo-text h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0 0 4px;
-  line-height: 1.2;
-}
-
-.logo-text p {
-  margin: 0;
-  font-size: 0.9rem;
-  opacity: 0.75;
-  line-height: 1.45;
-}
-
-/* Mobile */
-@media (max-width: 767px) {
-  .header {
-    padding: 20px;
-  }
-
-  .logo-container {
-    gap: 15px;
-  }
-
-  .logo-icon {
-    width: 54px;
-    height: 54px;
-  }
-
-  .logo-text h1 {
-    font-size: 1.5rem;
-  }
-
-  .logo-text p {
-    font-size: 0.8rem;
-  }
-}
-</style>
