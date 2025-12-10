@@ -1,139 +1,41 @@
 <script setup lang="ts">
-// Skeleton component doesn't need props, it's just visual structure
+// Skeleton component
 </script>
 
 <template>
-  <div class="herb-card card">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col h-full animate-pulse">
     <!-- Image Placeholder -->
-    <div class="skeleton-image skeleton-pulse" />
+    <div class="h-48 w-full bg-slate-200" />
 
     <!-- Info Placeholder -->
-    <div class="herb-info">
+    <div class="p-5 grow flex flex-col gap-4">
       <div>
         <!-- Title -->
-        <div class="skeleton-text title skeleton-pulse" />
+        <div class="h-6 bg-slate-200 rounded w-3/4 mb-4" />
 
-        <!-- Description lines -->
-        <div class="skeleton-text line-long skeleton-pulse mt-3" />
-        <div class="skeleton-text line-medium skeleton-pulse" />
-        <div class="skeleton-text line-short skeleton-pulse" />
+        <!-- Description -->
+        <div class="space-y-2 mb-4">
+          <div class="h-4 bg-slate-100 rounded w-full" />
+          <div class="h-4 bg-slate-100 rounded w-5/6" />
+          <div class="h-4 bg-slate-100 rounded w-4/6" />
+        </div>
 
-        <!-- Usage line -->
-        <div class="skeleton-text line-medium skeleton-pulse mt-3" />
+        <!-- Usage -->
+        <div class="h-4 bg-slate-100 rounded w-1/2 mt-2" />
       </div>
 
-      <!-- Details Grid Placeholder -->
-      <div class="herb-details-grid">
-        <div class="detail-item">
-          <div class="skeleton-text label skeleton-pulse" />
-          <div class="skeleton-text value skeleton-pulse" />
-        </div>
-        <div class="detail-item">
-          <div class="skeleton-text label skeleton-pulse" />
-          <div class="skeleton-text value skeleton-pulse" />
-        </div>
-        <div class="detail-item">
-          <div class="skeleton-text label skeleton-pulse" />
-          <div class="skeleton-text value skeleton-pulse" />
+      <!-- Details Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 pt-4 border-t border-slate-100 mt-auto">
+        <div v-for="i in 3" :key="i" class="flex flex-col gap-1">
+          <div class="h-3 bg-slate-100 rounded w-12" />
+          <div class="h-4 bg-slate-200 rounded w-16" />
         </div>
       </div>
 
-      <!-- Category Tag Placeholder -->
-      <div class="herb-category-wrapper">
-        <div class="skeleton-tag skeleton-pulse" />
+      <!-- Category Tag -->
+      <div class="mt-2">
+        <div class="h-6 bg-slate-100 rounded-full w-24" />
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.herb-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  overflow: hidden;
-}
-
-.herb-info {
-  padding: 1rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.herb-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f0f4f8;
-}
-
-.herb-category-wrapper {
-  margin-top: auto;
-}
-
-/* Skeleton Specific Styles */
-.skeleton-pulse {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.skeleton-image {
-  height: 180px;
-  width: 100%;
-}
-
-.skeleton-text {
-  height: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.skeleton-text.title {
-  height: 1.5rem;
-  width: 60%;
-  margin-bottom: 1rem;
-}
-
-.skeleton-text.line-long {
-  width: 100%;
-}
-.skeleton-text.line-medium {
-  width: 80%;
-}
-.skeleton-text.line-short {
-  width: 60%;
-}
-
-.skeleton-text.label {
-  height: 0.8rem;
-  width: 50%;
-  margin-bottom: 4px;
-}
-
-.skeleton-text.value {
-  height: 1rem;
-  width: 70%;
-}
-
-.skeleton-tag {
-  height: 24px;
-  width: 80px;
-  border-radius: 15px;
-}
-</style>

@@ -16,7 +16,6 @@ const error = ref<string | null>(null);
 const searchQuery = ref<string>('');
 const selectedCategory = ref<string>('');
 
-// Computed Properties
 const categories = computed<string[]>(() => {
   const categorySet = new Set<string>();
   herbs.value.forEach((herb) => {
@@ -78,118 +77,60 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="home-view">
+  <div class="flex flex-col min-h-screen">
     <Header />
     <SearchBar :categories="categories" @search="handleSearch" @filter="handleFilter" />
 
-    <div class="container">
-      <!-- Error -->
-      <div v-if="error" class="error-message">
-        <p>⚠️ {{ error }}</p>
-        <button class="retry-btn" @click="fetchHerbs">
+    <main class="container mx-auto px-4 py-6 grow">
+      <!--  Error -->
+      <div v-if="error" class="max-w-md mx-auto mt-10 p-8 text-center bg-red-50 border border-red-200 rounded-xl shadow-sm">
+        <p class="text-red-600 font-medium text-lg mb-4 flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          {{ error }}
+        </p>
+        <button class="px-6 py-2 bg-primary hover:bg-dark text-white rounded-lg transition-colors shadow-sm cursor-pointer" @click="fetchHerbs">
           ลองใหม่อีกครั้ง
         </button>
       </div>
 
-      <div v-else-if="loading" class="loading-wrapper">
-        <div class="loading-header">
-          <span class="spinner" />
-          <p>กำลังดาวน์โหลดข้อมูลสมุนไพร...</p>
+      <!-- Skeleton Grid -->
+      <div v-else-if="loading" class="mt-4">
+        <div class="flex items-center gap-3 mb-6 text-text-muted">
+          <!-- Spinner -->
+          <div class="w-5 h-5 border-2 border-slate-200 border-t-primary rounded-full animate-spin" />
+          <p class="font-medium animate-pulse">
+            กำลังดาวน์โหลดข้อมูลสมุนไพร...
+          </p>
         </div>
 
-        <!-- Skeleton Grid -->
-        <div class="herbs-grid grid grid-3">
-          <HerbCardSkeleton v-for="n in 6" :key="n" />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <HerbCardSkeleton v-for="n in 8" :key="n" />
         </div>
       </div>
 
       <template v-else>
-        <div v-if="filteredHerbs.length" class="herbs-count">
-          <p>พบ {{ filteredHerbs.length }} รายการ</p>
+        <div v-if="filteredHerbs.length" class="mb-6 text-text-muted font-medium">
+          พบ {{ filteredHerbs.length }} รายการ
         </div>
 
-        <div v-if="filteredHerbs.length" class="herbs-grid grid grid-3">
+        <div v-if="filteredHerbs.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-10">
           <HerbCard v-for="herb in filteredHerbs" :key="herb.ID" :herb="herb" />
         </div>
 
-        <div v-else class="no-results">
-          <p>ไม่พบสมุนไพรที่ตรงกับการค้นหา</p>
+        <div v-else class="text-center py-20 text-text-muted bg-white rounded-xl border border-dashed border-slate-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <p class="text-lg">
+            ไม่พบสมุนไพรที่ตรงกับการค้นหา
+          </p>
+          <p class="text-sm text-slate-400 mt-1">
+            ลองเปลี่ยนคำค้นหาหรือเลือกหมวดหมู่อื่น
+          </p>
         </div>
       </template>
-    </div>
+    </main>
   </div>
 </template>
-
-<style scoped>
-.home-view {
-  min-height: 100vh;
-  flex-grow: 1;
-}
-
-.loading-wrapper {
-  margin-top: 20px;
-}
-
-.loading-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  color: var(--text-color);
-  opacity: 0.8;
-  font-weight: 500;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #e2e8f0;
-  border-top-color: var(--primary-color);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.herbs-count {
-  margin: 20px 0;
-  color: var(--text-color);
-  font-weight: 500;
-}
-
-.herbs-grid {
-  margin-bottom: 40px;
-  padding-bottom: 2rem;
-}
-
-.no-results {
-  text-align: center;
-  padding: 50px 20px;
-  color: var(--text-color);
-}
-
-.error-message {
-  text-align: center;
-  padding: 50px 20px;
-  color: #e53e3e;
-  background-color: #fff5f5;
-  border-radius: 8px;
-  margin-top: 20px;
-  border: 1px solid #feb2b2;
-}
-
-.retry-btn {
-  margin-top: 15px;
-  padding: 8px 16px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: var(--font-family-sans);
-}
-</style>

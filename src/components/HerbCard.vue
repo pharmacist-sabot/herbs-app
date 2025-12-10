@@ -1,4 +1,3 @@
-<!-- src/components/HerbCard.vue -->
 <script setup lang="ts">
 import type { Herb } from '@/types/Herb';
 
@@ -16,148 +15,57 @@ function truncateText(text: string | undefined, maxLength: number): string {
 </script>
 
 <template>
-  <div class="herb-card card">
+  <div class="group bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
     <!-- Herb Image -->
-    <div class="herb-image">
-      <img :src="herb.ImageUrl || '/placeholder-herb.png'" :alt="herb.Name" loading="lazy">
+    <div class="h-48 overflow-hidden relative bg-slate-100">
+      <img
+        :src="herb.ImageUrl || '/placeholder-herb.png'"
+        :alt="herb.Name"
+        loading="lazy"
+        class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+      >
+      <!-- Overlay Gradient -->
+      <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
 
     <!-- Herb Info -->
-    <div class="herb-info">
+    <div class="p-5 grow flex flex-col gap-4">
       <div>
-        <h3 class="herb-name">
+        <h3 class="text-xl font-bold text-primary mb-2 line-clamp-1 group-hover:text-dark transition-colors">
           {{ herb.Name }}
         </h3>
 
-        <div class="herb-description">
-          <strong>สรรพคุณ:</strong>
+        <div class="text-sm text-text-main mb-2 leading-relaxed">
+          <strong class="font-semibold text-dark">สรรพคุณ:</strong>
           {{ truncateText(herb.Description, 80) }}
         </div>
-        <div class="herb-usage">
-          <strong>วิธีใช้:</strong> {{ herb.Usage }}
+        <div class="text-sm text-text-main leading-relaxed">
+          <strong class="font-semibold text-dark">วิธีใช้:</strong> {{ herb.Usage }}
         </div>
       </div>
 
       <!-- Technical Details -->
-      <div class="herb-details-grid">
-        <div class="detail-item">
-          <span class="detail-label">อัตราจ่ายชดเชย</span>
-          <span class="detail-value">{{ herb.NHSO_Price || 'N/A' }}</span>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 pt-4 border-t border-slate-100 mt-auto">
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-400">อัตราจ่ายชดเชย</span>
+          <span class="text-sm font-semibold text-dark">{{ herb.NHSO_Price || 'N/A' }}</span>
         </div>
-        <div class="detail-item">
-          <span class="detail-label">รอบการเบิก</span>
-          <span class="detail-value">{{ herb.Per_Course || 'N/A' }}</span>
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-400">รอบการเบิก</span>
+          <span class="text-sm font-semibold text-dark">{{ herb.Per_Course || 'N/A' }}</span>
         </div>
-        <div class="detail-item">
-          <span class="detail-label">รหัส ICD10</span>
-          <span class="detail-value">{{ herb.ICD10 || 'N/A' }}</span>
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-400">รหัส ICD10</span>
+          <span class="text-sm font-semibold text-dark">{{ herb.ICD10 || 'N/A' }}</span>
         </div>
       </div>
 
       <!-- Category Tag -->
-      <div class="herb-category-wrapper">
-        <p class="herb-category">
+      <div class="mt-2">
+        <span class="inline-block bg-light text-primary px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
           {{ herb.Category }}
-        </p>
+        </span>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.herb-card {
-  cursor: default;
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #e2e8f0;
-  background-color: white;
-}
-
-.herb-image {
-  height: 180px;
-  overflow: hidden;
-}
-
-.herb-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition);
-}
-
-.herb-card:hover .herb-image img {
-  transform: scale(1.05);
-}
-
-.herb-info {
-  padding: 1rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.herb-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--primary-color);
-  line-height: 1.3;
-}
-
-.herb-description,
-.herb-usage {
-  font-size: 0.9rem;
-  color: var(--text-color);
-  line-height: 1.5;
-  margin-bottom: 0.5rem;
-}
-
-.herb-description strong,
-.herb-usage strong {
-  font-weight: 500;
-  color: var(--dark-color);
-}
-
-.herb-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f0f4f8;
-}
-
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.8rem;
-}
-
-.detail-label {
-  color: #718096;
-  margin-bottom: 2px;
-}
-
-.detail-value {
-  font-weight: 500;
-  color: var(--dark-color);
-}
-
-.herb-category-wrapper {
-  margin-top: auto;
-}
-
-.herb-category {
-  background-color: var(--light-color);
-  color: var(--primary-color);
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  align-self: flex-start;
-}
-</style>

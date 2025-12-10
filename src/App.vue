@@ -1,27 +1,10 @@
-<!-- src/App.vue -->
 <script setup lang="ts">
 import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <div class="main-layout">
+  <div class="flex flex-col min-h-screen font-sans bg-background text-text-main">
     <router-view />
-
     <Footer />
   </div>
 </template>
-
-<style>
-.main-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>
