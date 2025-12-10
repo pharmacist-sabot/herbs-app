@@ -53,4 +53,15 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    setupFiles: [],
+    include: ['test/**/*.spec.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: ['src/main.ts', 'src/vite-env.d.ts', 'src/types/**', '.eslintrc.cjs'],
+    },
+  },
 });
