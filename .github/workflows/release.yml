@@ -3,13 +3,9 @@ name: Release
 on:
   push:
     branches: [main, master]
-  pull_request:
-    branches: [main, master]
 
 permissions:
   contents: write
-  issues: write
-  pull-requests: write
 
 jobs:
   release:
@@ -30,7 +26,8 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76
         with:
-          bun-version: latest
+          # Pin Bun to a stable minor version to keep builds reproducible
+          bun-version: 1.3.5
 
       # Install Dependencies
       - name: Install dependencies
@@ -41,7 +38,7 @@ jobs:
       - name: Create Release
         uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90
         with:
-          semantic_version: 19
+          semantic_version: 25
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
