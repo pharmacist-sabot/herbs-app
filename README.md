@@ -2,12 +2,20 @@
 
 > A modern, fast, and offline-capable web application for browsing Thailand's NHSO-supported herbal medicines.
 
-[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)](https://vuejs.org/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Bun](https://img.shields.io/badge/Bun-000?style=for-the-badge&logo=bun&logoColor=white)](https://bun.sh/)
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
-[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+[![CI Quality](https://github.com/pharmacist-sabot/herbs-app/actions/workflows/ci-quality.yml/badge.svg?branch=main)](https://github.com/pharmacist-sabot/herbs-app/actions/workflows/ci-quality.yml)
+[![Vue.js](https://img.shields.io/badge/Vue.js-v3.5+-4FC08D?logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-v7.2+-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5.9+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.1+-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Bun](https://img.shields.io/badge/Bun-v1.2+-000000?logo=bun&logoColor=white)](https://bun.sh/)
+[![PWA Ready](https://img.shields.io/badge/PWA-Ready-5A0FC8?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## 🌐 Live Demo
+
+**[👉 Try the App](https://herbs-app.rxdevman.com)**
+
+![Thai Herbal NHSO Support App](public/screenshots/homepage.png)
 
 ## Overview
 
@@ -29,6 +37,7 @@ Built with **Vue 3**, **TypeScript**, and **Vite**, this application prioritizes
 - **Framework**: [Vue 3](https://vuejs.org/) (Composition API)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
 - **Routing**: [Vue Router](https://router.vuejs.org/)
 - **PWA**: [Vite Plugin PWA](https://vite-pwa-org.netlify.app/)
 - **Backend**: Google Apps Script (serving JSON from Google Sheets)
@@ -102,6 +111,34 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## � Available Scripts
+
+| Script                  | Description                    |
+| ----------------------- | ------------------------------ |
+| `bun run dev`           | Start development server       |
+| `bun run build`         | Build for production           |
+| `bun run preview`       | Preview production build       |
+| `bun run lint`          | Run ESLint                     |
+| `bun run lint:fix`      | Fix ESLint errors              |
+| `bun run type-check`    | Run TypeScript type checking   |
+| `bun run test:unit`     | Run unit tests with Vitest     |
+| `bun run test:coverage` | Run tests with coverage report |
+
+## 🚀 Deployment
+
+Build the production bundle:
+
+```bash
+bun run build
+```
+
+The output will be in the `dist/` directory. You can deploy it to any static hosting service like:
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://netlify.com/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
+- [GitHub Pages](https://pages.github.com/)
+
+## �📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
