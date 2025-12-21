@@ -111,7 +111,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## � Available Scripts
+## Available Scripts
 
 | Script                  | Description                    |
 | ----------------------- | ------------------------------ |
@@ -139,6 +139,6 @@ The output will be in the `dist/` directory. You can deploy it to any static hos
 - [Cloudflare Pages](https://pages.cloudflare.com/)
 - [GitHub Pages](https://pages.github.com/)
 
-## �📄 License
+## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
