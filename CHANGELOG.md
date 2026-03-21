@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.1...v1.0.2) (2026-03-21)
+
+### 📝 Documentation
+
+* update README formatting and section headers ([0cbf9c5](https://github.com/pharmacist-sabot/herbs-app/commit/0cbf9c5667f5c5a072659f5cc158dcf46d91e476))
+
 ## [1.0.1](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.0...v1.0.1) (2025-12-21)
 
 ### 📝 Documentation
