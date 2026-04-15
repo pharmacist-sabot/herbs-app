@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.3...v1.0.4) (2026-04-15)
+
+### 📦 Dependency Updates
+
+* **deps:** update dependency bun to v1.3.12 ([#8](https://github.com/pharmacist-sabot/herbs-app/issues/8)) ([9d5cf4a](https://github.com/pharmacist-sabot/herbs-app/commit/9d5cf4ae639db707b767ffd3749d34d4ff6d362b))
+
 ## [1.0.3](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.2...v1.0.3) (2026-04-15)
 
 ### 📦 Dependency Updates
