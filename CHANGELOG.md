@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.2...v1.0.3) (2026-04-15)
+
+### 📦 Dependency Updates
+
+* **bot:** configure Renovate ([#6](https://github.com/pharmacist-sabot/herbs-app/issues/6)) ([ee4159c](https://github.com/pharmacist-sabot/herbs-app/commit/ee4159cea19f7713a959a178f4391e851f44c463))
+* **deps:** update actions/checkout action to v6.0.2 ([#7](https://github.com/pharmacist-sabot/herbs-app/issues/7)) ([dcc3110](https://github.com/pharmacist-sabot/herbs-app/commit/dcc311053618cbdb9e926b425898f7778e4096a4))
+
 ## [1.0.2](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.1...v1.0.2) (2026-03-21)
 
 ### 📝 Documentation
