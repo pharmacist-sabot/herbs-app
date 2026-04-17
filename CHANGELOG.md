@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.4...v1.0.5) (2026-04-17)
+
+### 📦 Dependency Updates
+
+* **deps:** update dependency @vue/tsconfig to ^0.9.0 ([#10](https://github.com/pharmacist-sabot/herbs-app/issues/10)) ([c57ea6c](https://github.com/pharmacist-sabot/herbs-app/commit/c57ea6ca155775d1c361cd109c97ee83f98e93ea))
+
 ## [1.0.4](https://github.com/pharmacist-sabot/herbs-app/compare/v1.0.3...v1.0.4) (2026-04-15)
 
 ### 📦 Dependency Updates
