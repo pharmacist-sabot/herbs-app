@@ -1,3 +1,9 @@
+## [1.0.8](https://github.com/suradet-ps/herbs-app/compare/v1.0.7...v1.0.8) (2026-04-23)
+
+### 📦 Dependency Updates
+
+* **deps:** update dependency bun to v1.3.13 ([#20](https://github.com/suradet-ps/herbs-app/issues/20)) ([dd8abc3](https://github.com/suradet-ps/herbs-app/commit/dd8abc3d8c0ca0ba98065a99a049a1fa8269eb5d))
+
 ## [1.0.7](https://github.com/suradet-ps/herbs-app/compare/v1.0.6...v1.0.7) (2026-04-23)
 
 ### 📦 Dependency Updates
